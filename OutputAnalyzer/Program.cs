@@ -15,7 +15,7 @@ namespace OutputAnalyzer
             // 2. BomEpubParser has parsed and stripped all the xml out of the files
             // 3. Files to process are located at the hard coded location below
 
-            var root = "C:\\Users\\jacob.garner\\Downloads\\_testCode\\bomOutput";
+            var root = "C:\\Users\\jacob.garner\\Downloads\\_bomparser\\output";
 
             StringBuilder sb = new StringBuilder();
             foreach (var dir in Directory.GetDirectories(root))
@@ -40,16 +40,16 @@ namespace OutputAnalyzer
                 Console.WriteLine(Path.GetFileName(dir));
                 Console.WriteLine("-------------------");
 
-                sb.Append(Path.GetFileName(dir));
+                sb.AppendLine(Path.GetFileName(dir) + ",");
 
-                foreach (var orderedItem in dict.OrderByDescending(pair => pair.Value).Take(25))
+                foreach (var orderedItem in dict.OrderByDescending(pair => pair.Value).Take(50))
                 {
                     Console.WriteLine($"{orderedItem.Key}: {orderedItem.Value}");
-                    sb.AppendLine($",{orderedItem.Key},{orderedItem.Value}");
+                    sb.AppendLine($"{orderedItem.Key},{orderedItem.Value}");
                 }
 
                 Console.WriteLine("-------------------");
-                //File.WriteAllText($"{root}\\output.csv", sb.ToString());
+                File.WriteAllText($"{root}\\output.csv", sb.ToString());
             }
 
             Console.WriteLine("Press any key to continue...");
